@@ -1,24 +1,17 @@
-package Pages;
+package pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class InsurancePage extends BasePage {
+public class DataPage extends BasePage {
 
-    public InsurancePage(WebDriver driver){
+    public DataPage(WebDriver driver){
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
-
-    @FindBy (xpath = "//div[contains (text(), 'Минимальная')]")
-    WebElement minSumBtn;
-
-    @FindBy (xpath = "//span[contains(@ng-click, 'save')]")
-    WebElement buyInsBtn;
 
     @FindBy (name = "insured0_surname")
     WebElement insSurname;
@@ -41,12 +34,6 @@ public class InsurancePage extends BasePage {
     @FindBy (name = "birthDate")
     WebElement birthDate;
 
-    @FindBy (name = "male")
-    WebElement sexMale;
-
-    @FindBy (name = "female")
-    WebElement sexFemale;
-
     @FindBy (name = "passport_series")
     WebElement passportSeries;
 
@@ -59,46 +46,47 @@ public class InsurancePage extends BasePage {
     @FindBy (name = "issuePlace")
     WebElement issuePlace;
 
-    @FindBy (xpath = "//span[contains(text(), 'Продолжить')]")
-    WebElement continueBtn;
-
     @FindBy (xpath = "//div[contains(text(), 'Заполнены')]")
     WebElement errorMsg;
 
-    public void chooseMinSum(){
-        btnWaitAndClick(minSumBtn);
-    }
-
-    public void clickSaveBtn() {
-        btnWaitAndClick(buyInsBtn);
-    }
-
-    public void fillInsuredData(String surname, String name, String birthDate){
-        fillField(insSurname, surname);
-        fillField(insName, name);
-        fillField(insBirthDate, birthDate);
-    }
-
-    public void fillData(String surnamein, String namein, String middlenamein, String birthDatein, String sex){
-        fillField(surname, surnamein);
-        fillField(name, namein);
-        fillField(middlename, middlenamein);
-        fillField(birthDate, birthDatein);
-        switch (sex) {
-            case "Мужской":
-                sexMale.click();
+    public void fillField(String element, String value){
+        switch (element){
+            case "Фамилия застрахованного":
+                setFieldValue(insSurname, value);
                 break;
-            case "Женский":
-                sexFemale.click();
+            case "Имя застрахованного":
+                setFieldValue(insName, value);
                 break;
+            case "Дата рождения застрахованного":
+                setFieldValue(insBirthDate, value);
+                break;
+            case "Фамилия страхователя":
+                setFieldValue(surname, value);
+                break;
+            case "Имя страхователя":
+                setFieldValue(name, value);
+                break;
+            case "Отчество страхователя":
+                setFieldValue(middlename, value);
+                break;
+            case "Дата рождения страхователя":
+                setFieldValue(birthDate, value);
+                break;
+            case "Серия паспорта":
+                setFieldValue(passportSeries, value);
+                break;
+            case "Номер паспорта":
+                setFieldValue(passportNumber, value);
+                break;
+            case "Дата выдачи паспорта":
+                setFieldValue(issueDate, value);
+                break;
+            case "Место выдачи паспорта":
+                setFieldValue(issuePlace, value);
+                break;
+            default:
+                throw new AssertionError("Поле '"+element+"' не объявлено на странице");
         }
-    }
-
-    public void fillPassportData(String series, String number, String date, String place){
-        fillField(passportSeries, series);
-        fillField(passportNumber, number);
-        fillField(issueDate, date);
-        fillField(issuePlace, place);
     }
 
     public void chkFilledData(String element, String value){
@@ -136,28 +124,15 @@ public class InsurancePage extends BasePage {
             case "Место выдачи паспорта":
                 compareAttr(issuePlace, value);
                 break;
-        }
-    }
+            default:
+                throw new AssertionError("Поле '"+element+"' не объявлено на странице");
 
-    public void chkSexField(String sex) {
-        switch (sex) {
-            case "Мужской":
-                Assert.assertTrue(isElementPresent((By.xpath("//span[contains(@class, " +
-                    "'b-radio-field b-checked-radio-field')]/input[@name = 'male']"))));
-                break;
-            case "Женский":
-                Assert.assertTrue(isElementPresent((By.xpath("//span[contains(@class, " +
-                    "'b-radio-field b-checked-radio-field')]/input[@name = 'female']"))));
-                break;
         }
-    }
-
-    public void continueBtnClick(){
-        continueBtn.click();
     }
 
     public void chkErrorMsg(String errorTxt){
         Assert.assertTrue(errorMsg.isDisplayed());
-        Assert.assertEquals(errorMsg.getText(), errorTxt);
+        Assert.assertTrue(errorMsg.getText().contains(errorTxt));
     }
+
 }

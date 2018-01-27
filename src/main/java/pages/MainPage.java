@@ -1,6 +1,7 @@
-package Pages;
+package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +14,8 @@ public class MainPage extends BasePage{
         this.driver = driver;
     }
 
-    @FindBy (xpath = "//div[contains(@class,'header_more_nav')]//*[contains(text(), 'Застраховать себя')]")
-    WebElement InsSelect;
+    @FindBy (xpath = "//ul[@class=\"alt-menu-mid__list\"]")
+    WebElement menuItems;
 
     @FindBy (xpath = "//a[contains (text(), 'Страхование путешественников')]")
     WebElement TravelInsBtn;
@@ -22,8 +23,9 @@ public class MainPage extends BasePage{
     @FindBy (xpath = "//IMG[contains(@src,'id=f6c836e1-5c5c-4367-b0d0-bbfb96be9c53')]")
     WebElement InsOnlainBtn;
 
-    public void selectInsMenu() {
-        btnWaitAndClick(InsSelect);
+    public void selectMenuItem(String itemName){
+        btnWaitAndClick(menuItems.findElement(By.xpath("//ul[contains(@class, lt-menu-mid__list)]//" +
+                "*[contains(text(), '"+itemName+"')]")));
     }
 
     public void goToTravelIns(){
@@ -35,7 +37,9 @@ public class MainPage extends BasePage{
     }
 
     public void chkTitle(String title){
-        Assert.assertEquals(title, driver.getTitle());
+        String actualTitle = driver.getTitle();
+        Assert.assertTrue(String.format("Получено значение [%s]. Ожидалось [%s]", actualTitle, title),
+                actualTitle.contains(title));
     }
 
 }

@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -21,7 +21,7 @@ public class BasePage {
         }
     }
 
-    public void fillField(WebElement element, String value){
+    public void setFieldValue(WebElement element, String value){
         element.clear();
         element.sendKeys(value);
     }

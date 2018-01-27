@@ -5,24 +5,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>Insurance</groupId>
-    <artifactId>InsuranceTest</artifactId>
+    <artifactId>InsTestForAllure</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <junit.version>4.12</junit.version>
         <allure.version>1.5.2</allure.version>
         <aspectj.version>1.8.9</aspectj.version>
-        <selenium-java.version>3.4.0</selenium-java.version>
+        <selenium-java.version>3.8.0</selenium-java.version>
         <allure-maven-plugin.version>2.5</allure-maven-plugin.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <allure-cucumber-jvm-adaptor.version>1.6.2</allure-cucumber-jvm-adaptor.version>
+        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+        <allure-junit-adaptor.version>1.5.2</allure-junit-adaptor.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
-            <artifactId>allure-cucumber-jvm-adaptor</artifactId>
-            <version>${allure-cucumber-jvm-adaptor.version}</version>
+            <artifactId>allure-junit-adaptor</artifactId>
+            <version>${allure-junit-adaptor.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -49,13 +49,19 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <includes>
-                        <include>**/CucumberRunner.java</include>
+                        <include>**/InsTestForAllure.java</include>
                     </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
                         -Dfile.encoding=UTF-8
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
                     </argLine>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>util.AllureListener</value>
+                        </property>
+                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>
