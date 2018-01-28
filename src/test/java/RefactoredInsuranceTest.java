@@ -9,9 +9,9 @@ public class RefactoredInsuranceTest extends BaseTest{
     public void insuranceTest(){
 /* 1. Перейти на страницу http://www.sberbank.ru/ru/person */
         driver.get(baseUrl);
-        MainPage mainPage = new MainPage(driver);
-        InsurancePage insPage = new InsurancePage(driver);
-        DataPage dataPage = new DataPage(driver);
+        MainPage mainPage = new MainPage();
+        InsurancePage insPage = new InsurancePage();
+        DataPage dataPage = new DataPage();
 /* 2. Нажать на – Застраховать себя и имущество */
         mainPage.selectMenuItem("Застраховать себя");
 /* 3. Выбрать – Страхование путешественников */

@@ -6,12 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import steps.BaseSteps;
 
 public class MainPage extends BasePage{
 
-    public MainPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public MainPage(){
+        PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
     @FindBy (xpath = "//ul[@class=\"alt-menu-mid__list\"]")
@@ -37,7 +37,7 @@ public class MainPage extends BasePage{
     }
 
     public void chkTitle(String title){
-        String actualTitle = driver.getTitle();
+        String actualTitle = BaseSteps.getDriver().getTitle();
         Assert.assertTrue(String.format("Получено значение [%s]. Ожидалось [%s]", actualTitle, title),
                 actualTitle.contains(title));
     }

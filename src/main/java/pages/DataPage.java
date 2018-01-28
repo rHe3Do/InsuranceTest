@@ -5,12 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import steps.BaseSteps;
 
 public class DataPage extends BasePage {
 
-    public DataPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public DataPage(){
+        PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
     @FindBy (name = "insured0_surname")

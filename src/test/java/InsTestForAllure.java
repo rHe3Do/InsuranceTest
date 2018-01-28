@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public class InsTestForAllure extends BaseSteps {
 
+    BaseSteps baseSteps = new BaseSteps();
     MainSteps mainSteps = new MainSteps();
     InsuranceSteps insuranceSteps = new InsuranceSteps();
     DataSteps dataSteps = new DataSteps();
@@ -37,7 +38,7 @@ public class InsTestForAllure extends BaseSteps {
         mainSteps.chkTitleStep("Страхование путешественников");
         mainSteps.selectInsOnlainStep();
 
-        mainSteps.swapToNextPage();
+        baseSteps.swapToNextPage();
 
         insuranceSteps.selectMinStep();
         insuranceSteps.clickSaveBtnStep();

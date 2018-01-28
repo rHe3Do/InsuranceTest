@@ -7,14 +7,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import steps.BaseSteps;
 
 public class BasePage {
 
-    WebDriver driver;
-
     public boolean isElementPresent(By by){
         try {
-            driver.findElement(by);
+            BaseSteps.getDriver().findElement(by);
             return true;
         } catch (NoSuchElementException e){
             return false;
@@ -31,16 +30,16 @@ public class BasePage {
     }
 
     public void btnWaitAndClick(WebElement element){
-        WebDriverWait wait1 = new WebDriverWait(driver, 5, 1000);
+        WebDriverWait wait1 = new WebDriverWait(BaseSteps.getDriver(), 5, 1000);
         wait1.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
     public void swapToNextPage(){
-        String currentWindow = driver.getWindowHandle();
-        for (String window : driver.getWindowHandles()) {
+        String currentWindow = BaseSteps.getDriver().getWindowHandle();
+        for (String window : BaseSteps.getDriver().getWindowHandles()) {
             if (!window.equals(currentWindow)) {
-                driver.switchTo().window(window);
+                BaseSteps.getDriver().switchTo().window(window);
             }
         }
     }
